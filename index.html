@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GUI-Lens: Coarse-to-Fine Cropping for GUI Grounding with General-Purpose VLMs">
+  <meta name="keywords" content="GUI grounding, GUI agent, VLM, ScreenSpot-Pro, OSWorld">
+  <title>GUI-Lens</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" href="static/images/favicon.svg">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1 publication-title">GUI-Lens: Coarse-to-Fine Cropping for GUI Grounding with General-Purpose VLMs</h1>
+      <div class="is-size-5 publication-authors">
+        <span class="author-block">Zichuan Fu<sup>1*</sup>,</span>
+        <span class="author-block">Shirong Wang<sup>1*</sup>,</span>
+        <span class="author-block">Wenlin Zhang<sup>1</sup>,</span>
+        <span class="author-block">Guojing Li<sup>1</sup>,</span>
+        <span class="author-block">Yimin Deng<sup>1</sup>,</span>
+        <span class="author-block">Jingtong Gao<sup>1</sup>,</span>
+        <span class="author-block">Junjia Qi<sup>1</sup>,</span>
+        <span class="author-block">Hanyu Yan<sup>1</sup>,</span>
+        <span class="author-block">Yefeng Zheng<sup>3</sup>,</span>
+        <span class="author-block">Xiaopeng Li<sup>1</sup>,</span>
+        <span class="author-block">Wanyu Wang<sup>1</sup>,</span>
+        <span class="author-block">Xian Wu<sup>2</sup>,</span>
+        <span class="author-block">Xiangyu Zhao<sup>1†</sup></span>
+      </div>
+      <div class="is-size-5 publication-authors affiliations">
+        <span class="author-block"><sup>1</sup>City University of Hong Kong</span>
+        <span class="author-block"><sup>2</sup>Tencent Jarvis Lab</span>
+        <span class="author-block"><sup>3</sup>Westlake University</span>
+      </div>
+      <div class="is-size-6 publication-authors notes">
+        <span class="author-block"><sup>*</sup>Equal contribution</span>
+        <span class="author-block"><sup>†</sup>Corresponding author</span>
+      </div>
+      <div class="publication-links">
+        <a href="https://arxiv.org/pdf/2608.03270" class="button is-normal is-rounded is-dark">
+          <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a>
+        <a href="https://arxiv.org/abs/2608.03270" class="button is-normal is-rounded is-dark">
+          <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a>
+        <a href="https://github.com/wangshirong123/GUI-Lens" class="button is-normal is-rounded is-dark">
+          <span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <img src="static/images/teaser.png" alt="Set-of-Marks and attention miss a small toolbar icon; GUI-Lens reaches it with coordinate references and coarse-to-fine cropping.">
+      </div>
+      <div class="column is-half">
+        <h2 class="title is-4">Look closer before clicking</h2>
+        <ul class="highlights">
+          <li><span class="emoji">🤔</span><span>A VLM often <b>recognizes</b> the requested control on a high-resolution screen but cannot <b>click</b> it precisely; methods that end with one direct click let that first estimate reach the result.</span></li>
+          <li><span class="emoji">📍</span><span><b>Coordinate references.</b> OCR text and detected UI components are listed with their positions, so the model can point at a listed element.</span></li>
+          <li><span class="emoji">🔍</span><span><b>Coarse-to-fine cropping.</b> The model chooses the region and scale of the next view, which is cropped and enlarged until the target is clear.</span></li>
+          <li><span class="emoji">✅</span><span><b>Training-free.</b> Crops and clicks are checked against the instruction, and GUI-Lens works with any API VLM.</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="caption"><b>Figure 1.</b> On a small toolbar target, Set-of-Marks may pick the wrong mark or have no mark on the target, and attention may peak off-target. GUI-Lens lists coordinate references and crops toward the target before clicking.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>GUI grounding maps natural-language instructions to click locations and is essential for reliable GUI agents. The task remains difficult on high-resolution, densely populated interfaces because a vision-language model (VLM) may recognize a requested control without locating it precisely enough for interaction. Most existing methods provide various forms of localization assistance, but still rely on a direct click prediction, allowing visual ambiguity or an inaccurate initial estimate to propagate to the final result.</p>
+          <p>In this paper, we introduce <b>GUI-Lens</b>, a coarse-to-fine grounding framework that allows a general-purpose VLM to determine the target through active visual observations. Specifically, GUI-Lens extracts OCR text and detected UI components from the screenshot and presents their positions as coordinate references. Using the instruction, the current view, and these references, the VLM selects the region and scale of the next view, which is cropped and enlarged to provide finer visual details. This process continues over successively focused views until the target is determined. Proposed crops and clicks are checked against the instruction throughout the process, and the final local position is mapped back to the original screen coordinates.</p>
+          <p>Experiments on four GUI grounding benchmarks and general-purpose VLM backends show that GUI-Lens improves overall grounding accuracy by up to 24.9 percentage points and achieves state-of-the-art performance with GPT-5.5.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <img src="static/images/framework.png" alt="GUI-Lens pipeline: coordinate priming, VLM reasoning with coarse-to-fine cropping, and final grounding with verification.">
+    <p class="caption"><b>Figure 2.</b> Overview of GUI-Lens. Coordinate Priming converts OCR text and detected UI components into coordinate references. Using the task, the current crop and the visible references, the VLM either selects a finer crop or proposes a click. Accepted crops advance the process, rejected proposals restart it, and the accepted final click is mapped back to the original screen.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <h3 class="title is-5">ScreenSpot-Pro</h3>
+    <p class="table-caption"><b>Table 1.</b> Accuracy (%) on all 1,581 ScreenSpot-Pro questions. Every baseline uses the same base model for all of its calls.</p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead>
+          <tr><th>Base model</th><th>Direct</th><th>ZoomClick</th><th>BAMI</th><th>AdaZoom-GUI</th><th>GUI-Lens</th><th>Gain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GPT-5.5</td><td>74.8</td><td>–</td><td>–</td><td>–</td><td class="ours">87.9</td><td class="gain">+13.1</td></tr>
+          <tr><td>Claude Opus 4.7</td><td>57.4</td><td>–</td><td>–</td><td>–</td><td class="ours">82.3</td><td class="gain">+24.9</td></tr>
+          <tr><td>DeepSeek-V4.1-Flash</td><td>26.6</td><td>58.6</td><td>55.0</td><td>27.5</td><td class="ours">72.9</td><td class="gain">+46.3</td></tr>
+          <tr><td>GLM-5.3-Flash</td><td>18.3</td><td>38.0</td><td>49.9</td><td>52.1</td><td class="ours">65.7</td><td class="gain">+47.4</td></tr>
+          <tr><td>MiniMax-M3</td><td>26.4</td><td>–</td><td>–</td><td>–</td><td class="ours">47.4</td><td class="gain">+21.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="title is-5 mt-5">OSWorld</h3>
+    <p class="table-caption"><b>Table 2.</b> Success rate (%) on three OSWorld domains; selected baselines are from the OSWorld-Verified leaderboard. Avg. is weighted by tasks.</p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead><tr><th>Method (model)</th><th>Chrome</th><th>Multi-App</th><th>OS</th><th>Avg.</th></tr></thead>
+        <tbody>
+          <tr><td>Claude Sonnet 4.6</td><td>78.5</td><td>60.2</td><td>91.7</td><td>70.1</td></tr>
+          <tr><td>Claude Opus 5</td><td>80.2</td><td>76.8</td><td>79.2</td><td>78.1</td></tr>
+          <tr><td>Claude Fable 5</td><td>78.1</td><td>79.3</td><td>95.8</td><td>81.4</td></tr>
+          <tr><td>Muse Spark 1.1</td><td>73.8</td><td>71.7</td><td>95.8</td><td>75.9</td></tr>
+          <tr><td>OpenAPA (Gemini 3.1 Pro)</td><td>71.7</td><td>65.7</td><td>83.3</td><td>70.0</td></tr>
+          <tr><td>Pointer Agent (Claude Opus 4.7)</td><td>78.2</td><td>74.4</td><td>95.8</td><td>78.6</td></tr>
+          <tr class="ours-row"><td>GUI-Lens (Claude Opus 4.7)</td><td>93.5</td><td>80.0</td><td>100.0</td><td>86.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="columns is-vcentered mt-5">
+      <div class="column is-half">
+        <img src="static/images/crop_vs_zoom.png" alt="Accuracy by round: coarse-to-fine cropping versus click-centered zooming.">
+      </div>
+      <div class="column is-half">
+        <p class="caption mt-0" style="text-align:left"><b>Figure 3.</b> Coarse-to-fine cropping versus click-centered zooming on ScreenSpot-Pro with GPT-5.5.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Case Study</h2>
+    <img src="static/images/case_study.png" alt="A GUI-Lens grounding trajectory with rejected and accepted crops.">
+    <p class="caption"><b>Figure 4.</b> A grounding trajectory of GUI-Lens. Verification rejects crop proposals that omit the target, after which the framework selects a new region, progressively exposes the target control, and verifies the final click.</p>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@article{fu2026guilens,
+  title={GUI-Lens: Coarse-to-Fine Cropping for GUI Grounding with General-Purpose VLMs},
+  author={Fu, Zichuan and Wang, Shirong and Zhang, Wenlin and Li, Guojing and Deng, Yimin and Gao, Jingtong and Qi, Junjia and Yan, Hanyu and Zheng, Yefeng and Li, Xiaopeng and Wang, Wanyu and Wu, Xian and Zhao, Xiangyu},
+  journal={arXiv preprint arXiv:2608.03270},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container has-text-centered">
+    <p>Page layout follows the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template (CC BY-SA 4.0).</p>
+  </div>
+</footer>
+
+</body>
+</html>
