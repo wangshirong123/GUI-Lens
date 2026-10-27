@@ -27,3 +27,4 @@ pre { background: #f5f5f5; border-radius: 6px; font-size: .85rem; white-space: p
   .hero-body { padding: 2rem 1rem; }
   .publication-title { font-size: 1.75rem !important; }
 }
+.teaser { max-width: 420px; margin: 0 auto; }
