@@ -154,7 +154,7 @@ GUI-Lens uses [GPA-GUI-Detector](https://huggingface.co/Salesforce/GPA-GUI-Detec
 If you find this work useful in your research, please consider citing:
 ```bibtex
 @article{fu2026guilens,
-  title={GUI-Lens: Coarse-to-Fine Cropping for GUI Grounding with General-Purpose VLMs},
+  title={GUI-Lens: Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping},
   author={Fu, Zichuan and Wang, Shirong and Zhang, Wenlin and Li, Guojing and Deng, Yimin and Gao, Jingtong and Qi, Junjia and Yan, Hanyu and Zheng, Yefeng and Li, Xiaopeng and Wang, Wanyu and Wu, Xian and Zhao, Xiangyu},
   journal={arXiv preprint arXiv:2608.03270},
   year={2026}
