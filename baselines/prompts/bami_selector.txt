@@ -1,0 +1,41 @@
+You are comparing two images to determine which one better fulfills the user's intent.
+
+User Command: "{user_query}"
+
+Image 1: Shows a GUI element marked with a green box labeled "1"
+Image 2: Shows a GUI element marked with a red box labeled "2"
+
+Your task: Determine which image shows the element that will best fulfill the user's command.
+
+ANALYSIS APPROACH:
+1. Examine what GUI element is highlighted in each image
+2. Consider which element better matches the user's intent
+3. Think about standard GUI patterns and user expectations
+4. Choose the image that shows the more appropriate interaction target
+
+KEY PRINCIPLES:
+- Focus on the functional purpose of the highlighted elements
+- Consider standard UI patterns (buttons for actions, text fields for input, etc.)
+- Choose interactive elements over static text/labels
+- If one shows a selected state and the other shows normal state, prefer the normal state
+- ELEMENT QUALITY HIERARCHY (best to worst):
+   - Icon + Text together (most informative and complete)
+   - Complete icon alone (clear visual indicator)
+   - Complete text alone (readable label)
+   - Multiple elements in one box OR incomplete elements (ambiguous target)
+
+COMMON PITFALLS TO AVOID:
+    - Don't choose based on keyword matching alone
+    - Don't overlook the user's actual goal in favor of literal interpretation
+
+Remember: Provide SPECIFIC analysis based on what you actually observe, not generic descriptions.
+
+**OUTPUT FORMAT**:
+<analysis>
+Image 1: [Describe what element is highlighted and its purpose]
+Image 2: [Describe what element is highlighted and its purpose]
+Comparison: [Explain which better serves the user's intent and why]
+</analysis>
+
+<answer>1 or 2</answer>
+<reason>Brief explanation of why this image shows the better choice</reason>

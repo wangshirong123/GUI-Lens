@@ -1,0 +1,5 @@
+# direct_norm.yaml — Single-shot baseline with the click in relative [0, 1000] coordinates.
+locator_mode: direct
+enable_legacy_pipeline: false
+coords_normalized: true
+runtime_timeout_s: 180

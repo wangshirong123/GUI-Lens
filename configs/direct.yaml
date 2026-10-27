@@ -1,0 +1,4 @@
+# direct.yaml — Single-shot baseline: the full screenshot and the instruction, one click in pixels.
+locator_mode: direct
+enable_legacy_pipeline: false
+runtime_timeout_s: 180

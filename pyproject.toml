@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gui-lens"
+version = "1.0.0"
+description = "GUI-Lens: training-free GUI grounding by coarse-to-fine cropping with an off-the-shelf VLM"
+requires-python = ">=3.11"
+dependencies = [
+    "openprogram==0.5.0",
+    "opencv-python",
+    "numpy",
+    "Pillow",
+    "torch",
+    "torchvision",
+    "ultralytics",
+    "easyocr",
+    "huggingface-hub",
+    "requests",
+    "pyyaml",
+]
+
+[tool.setuptools.packages.find]
+include = ["gui_lens*"]
