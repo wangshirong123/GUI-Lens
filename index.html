@@ -83,7 +83,7 @@
         <div class="content has-text-justified">
           <p>GUI grounding maps natural-language instructions to click locations and is essential for reliable GUI agents. The task remains difficult on high-resolution, densely populated interfaces because a vision-language model (VLM) may recognize a requested control without locating it precisely enough for interaction. Most existing methods provide various forms of localization assistance, but still rely on a direct click prediction, allowing visual ambiguity or an inaccurate initial estimate to propagate to the final result.</p>
           <p>In this paper, we introduce <b>GUI-Lens</b>, a coarse-to-fine grounding framework that allows a general-purpose VLM to determine the target through active visual observations. Specifically, GUI-Lens extracts OCR text and detected UI components from the screenshot and presents their positions as coordinate references. Using the instruction, the current view, and these references, the VLM selects the region and scale of the next view, which is cropped and enlarged to provide finer visual details. This process continues over successively focused views until the target is determined. Proposed crops and clicks are checked against the instruction throughout the process, and the final local position is mapped back to the original screen coordinates.</p>
-          <p>Experiments on four GUI grounding benchmarks and general-purpose VLM backends show that GUI-Lens improves overall grounding accuracy by up to 24.9 percentage points and achieves state-of-the-art performance with GPT-5.5.</p>
+          <p>Experiments on four GUI grounding benchmarks and five general-purpose base models show that GUI-Lens consistently improves grounding accuracy, by up to 3.8&times; on ScreenSpot-Pro.</p>
         </div>
       </div>
     </div>
@@ -107,14 +107,14 @@
     <div class="table-container">
       <table class="table is-fullwidth is-hoverable results">
         <thead>
-          <tr><th>Base model</th><th>Direct</th><th>ZoomClick</th><th>BAMI</th><th>AdaZoom-GUI</th><th>GUI-Lens</th><th>Gain</th></tr>
+          <tr><th>Base model</th><th>Direct</th><th>ZoomClick</th><th>BAMI</th><th>AdaZoom-GUI</th><th>UI-Zoomer</th><th>GUI-Lens</th><th>Gain</th></tr>
         </thead>
         <tbody>
-          <tr><td>GPT-5.5</td><td>74.8</td><td>–</td><td>–</td><td>–</td><td class="ours">87.9</td><td class="gain">+13.1</td></tr>
-          <tr><td>Claude Opus 4.7</td><td>57.4</td><td>–</td><td>–</td><td>–</td><td class="ours">82.3</td><td class="gain">+24.9</td></tr>
-          <tr><td>DeepSeek-V4.1-Flash</td><td>26.6</td><td>58.6</td><td>55.0</td><td>27.5</td><td class="ours">72.9</td><td class="gain">+46.3</td></tr>
-          <tr><td>GLM-5.3-Flash</td><td>18.3</td><td>38.0</td><td>49.9</td><td>52.1</td><td class="ours">65.7</td><td class="gain">+47.4</td></tr>
-          <tr><td>MiniMax-M3</td><td>26.4</td><td>–</td><td>–</td><td>–</td><td class="ours">47.4</td><td class="gain">+21.0</td></tr>
+          <tr><td>GPT-5.5</td><td>74.8</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">87.9</td><td class="gain">+13.1</td></tr>
+          <tr><td>Claude Opus 4.7</td><td>57.4</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">82.3</td><td class="gain">+24.9</td></tr>
+          <tr><td>DeepSeek-V4.1-Flash</td><td>26.6</td><td>58.6</td><td>55.0</td><td>27.5</td><td>55.6</td><td class="ours">72.9</td><td class="gain">+46.3</td></tr>
+          <tr><td>GLM-5.3-Flash</td><td>18.3</td><td>38.0</td><td>49.9</td><td>52.1</td><td>–</td><td class="ours">70.0</td><td class="gain">+51.7</td></tr>
+          <tr><td>MiniMax-M3</td><td>26.4</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">47.4</td><td class="gain">+21.0</td></tr>
         </tbody>
       </table>
     </div>
