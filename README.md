@@ -1,5 +1,5 @@
 <div align="center">
-<h1>GUI-Lens: Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping</h1>
+<img src="assets/images/title.png?raw=true" width="90%" alt="GUI-Lens: Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping">
 <hr>
 
 Zichuan Fu<sup>*1</sup>&nbsp;
@@ -20,7 +20,8 @@ Xiangyu Zhao<sup>1†</sup>
 <sup>*</sup> Equal Contribution&nbsp;&nbsp;&nbsp;&nbsp;<sup>†</sup> Corresponding Author
 
 <h4>
-<a href="https://arxiv.org/abs/2608.03270">📄 arXiv Paper</a>
+<a href="https://arxiv.org/abs/2608.03270">📄 arXiv Paper</a> &nbsp;
+<a href="https://wangshirong123.github.io/GUI-Lens/">🌐 Project Page</a>
 </h4>
 
 </div>
