@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- GUI window -->
+  <rect x="14" y="30" width="150" height="118" rx="14" fill="#ffffff" stroke="#24406e" stroke-width="7"/>
+  <path d="M14 44 a14 14 0 0 1 14 -14 h122 a14 14 0 0 1 14 14 v12 h-150 z" fill="#24406e"/>
+  <circle cx="32" cy="43" r="4.5" fill="#ff6b5b"/><circle cx="46" cy="43" r="4.5" fill="#ffc145"/><circle cx="60" cy="43" r="4.5" fill="#4cc38a"/>
+  <rect x="30" y="72" width="34" height="9" rx="4.5" fill="#c9d6ec"/>
+  <rect x="30" y="90" width="52" height="9" rx="4.5" fill="#c9d6ec"/>
+  <rect x="30" y="108" width="26" height="22" rx="5" fill="#c9d6ec"/>
+  <rect x="62" y="108" width="26" height="22" rx="5" fill="#c9d6ec"/>
+  <!-- lens -->
+  <line x1="150" y1="150" x2="182" y2="182" stroke="#24406e" stroke-width="15" stroke-linecap="round"/>
+  <circle cx="122" cy="118" r="44" fill="#eaf1ff" stroke="#24406e" stroke-width="9"/>
+  <rect x="104" y="100" width="36" height="36" rx="8" fill="#e8b84a" stroke="#c4542f" stroke-width="4"/>
+  <line x1="122" y1="88" x2="122" y2="148" stroke="#c4542f" stroke-width="3" stroke-dasharray="5 4"/>
+  <line x1="92" y1="118" x2="152" y2="118" stroke="#c4542f" stroke-width="3" stroke-dasharray="5 4"/>
+  <circle cx="122" cy="118" r="6" fill="#c4542f"/>
+</svg>
