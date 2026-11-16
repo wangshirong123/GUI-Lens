@@ -64,13 +64,29 @@ Table 1. Accuracy (%) on all 1,581 ScreenSpot-Pro questions. The baselines use t
 | GLM-5.3-Flash | 18.3 | 38.0 | 49.9 | 52.1 | - | **70.0** |
 | MiniMax-M3 | 26.4 | - | - | - | - | **47.4** |
 
-Table 2. Average accuracy (%) on UI-Vision (5,479 questions) / MMBench-GUI-L2 (3,594 questions).
+Table 2. Average accuracy (%) on all 5,479 UI-Vision questions.
 
 | Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
 |---|---|---|---|---|---|---|
-| GPT-5.5 | - | - | - | - | - | **68.6 / 91.5** |
-| DeepSeek-V4.1-Flash | 29.7 / 61.6 | 42.3 / 74.5 | 46.0 / 81.8 | 24.0 / 48.8 | 42.4 / 79.9 | **61.3 / 90.3** |
-| GLM-5.3-Flash | 36.2 / 62.3 | 28.5 / 67.4 | 38.6 / 75.8 | 46.9 / 85.6 | 46.4 / 81.3 | **53.5 / 86.2** |
+| GPT-5.5 | - | - | - | - | - | **68.6** |
+| DeepSeek-V4.1-Flash | 29.7 | 42.3 | 46.0 | 24.0 | 42.4 | **61.3** |
+| GLM-5.3-Flash | 36.2 | 28.5 | 38.6 | 46.9 | 46.4 | **53.5** |
+
+Table 3. Average accuracy (%) on all 3,594 MMBench-GUI-L2 questions.
+
+| Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
+|---|---|---|---|---|---|---|
+| GPT-5.5 | - | - | - | - | - | **91.5** |
+| DeepSeek-V4.1-Flash | 61.6 | 74.5 | 81.8 | 48.8 | 79.9 | **90.3** |
+| GLM-5.3-Flash | 62.3 | 67.4 | 75.8 | 85.6 | 81.3 | **86.2** |
+
+Table 4. Average accuracy (%) on OSWorld-G.
+
+| Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
+|---|---|---|---|---|---|---|
+| MiniMax-M3.1 | 81.8 | 76.7 | 76.9 | 83.1 | **84.3** | 83.3 |
+| DeepSeek-V4.1-Flash | 54.7 | 50.6 | 70.8 | 37.3 | 63.9 | **82.7** |
+| GLM-5.3-Flash | 68.0 | 43.5 | 57.3 | 79.6 | 61.0 | **85.3** |
 
 ## :rescue_worker_helmet: Installation
 
