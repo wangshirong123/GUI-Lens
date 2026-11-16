@@ -64,6 +64,14 @@ Table 1. Accuracy (%) on all 1,581 ScreenSpot-Pro questions. The baselines use t
 | GLM-5.3-Flash | 18.3 | 38.0 | 49.9 | 52.1 | - | **70.0** |
 | MiniMax-M3 | 26.4 | - | - | - | - | **47.4** |
 
+Table 2. Average accuracy (%) on UI-Vision (5,479 questions) / MMBench-GUI-L2 (3,594 questions).
+
+| Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
+|---|---|---|---|---|---|---|
+| GPT-5.5 | - | - | - | - | - | **68.6 / 91.5** |
+| DeepSeek-V4.1-Flash | 29.7 / 61.6 | 42.3 / 74.5 | 46.0 / 81.8 | 24.0 / 48.8 | 42.4 / 79.9 | **61.3 / 90.3** |
+| GLM-5.3-Flash | 36.2 / 62.3 | 28.5 / 67.4 | 38.6 / 75.8 | 46.9 / 85.6 | 46.4 / 81.3 | **53.5 / 86.2** |
+
 ## :rescue_worker_helmet: Installation
 
 1. Clone this repo:
