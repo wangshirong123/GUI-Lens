@@ -69,6 +69,7 @@ Table 2. Average accuracy (%) on all 5,479 UI-Vision questions.
 | Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
 |---|---|---|---|---|---|---|
 | GPT-5.5 | - | - | - | - | - | **68.6** |
+| MiniMax-M3.1 | 55.1 | 55.2 | 58.3 | 56.4 | - | **65.7** |
 | DeepSeek-V4.1-Flash | 29.7 | 42.3 | 46.0 | 24.0 | 42.4 | **61.3** |
 | GLM-5.3-Flash | 36.2 | 28.5 | 38.6 | 46.9 | 46.4 | **53.5** |
 
@@ -77,6 +78,7 @@ Table 3. Average accuracy (%) on all 3,594 MMBench-GUI-L2 questions.
 | Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
 |---|---|---|---|---|---|---|
 | GPT-5.5 | - | - | - | - | - | **91.5** |
+| MiniMax-M3.1 | 71.2 | 86.2 | 87.9 | 82.4 | - | **89.3** |
 | DeepSeek-V4.1-Flash | 61.6 | 74.5 | 81.8 | 48.8 | 79.9 | **90.3** |
 | GLM-5.3-Flash | 62.3 | 67.4 | 75.8 | 85.6 | 81.3 | **86.2** |
 
