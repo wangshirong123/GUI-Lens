@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="GUI-Lens: Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping">
-  <meta name="keywords" content="GUI grounding, GUI agent, VLM, ScreenSpot-Pro, OSWorld">
+  <meta name="keywords" content="GUI grounding, GUI agent, VLM, ScreenSpot-Pro, OSWorld, UI-Vision, MMBench-GUI">
   <title>GUI-Lens</title>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
@@ -133,6 +133,22 @@
           <tr><td>OpenAPA (Gemini 3.1 Pro)</td><td>71.7</td><td>65.7</td><td>83.3</td><td>70.0</td></tr>
           <tr><td>Pointer Agent (Claude Opus 4.7)</td><td>78.2</td><td>74.4</td><td>95.8</td><td>78.6</td></tr>
           <tr class="ours-row"><td>GUI-Lens (Claude Opus 4.7)</td><td>93.5</td><td>80.0</td><td>100.0</td><td>86.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="title is-5 mt-5">UI-Vision and MMBench-GUI-L2</h3>
+    <p class="table-caption"><b>Table 3.</b> Average accuracy (%) on UI-Vision (5,479 questions) / MMBench-GUI-L2 (3,594 questions).</p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead>
+          <tr><th>Base model</th><th>Direct</th><th>ZoomClick</th><th>BAMI</th><th>AdaZoom-GUI</th><th>UI-Zoomer</th><th>GUI-Lens</th><th>Gain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GPT-5.5</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">68.6 / 91.5</td><td class="gain">–</td></tr>
+          <tr><td>MiniMax-M3.1</td><td>55.1 / 71.2</td><td>55.2 / 86.2</td><td>58.3 / 87.9</td><td>56.4 / 82.4</td><td>–</td><td class="ours">65.7 / 89.3</td><td class="gain">+10.6 / +18.1</td></tr>
+          <tr><td>DeepSeek-V4.1-Flash</td><td>29.7 / 61.6</td><td>42.3 / 74.5</td><td>46.0 / 81.8</td><td>24.0 / 48.8</td><td>42.4 / 79.9</td><td class="ours">61.3 / 90.3</td><td class="gain">+31.6 / +28.7</td></tr>
+          <tr><td>GLM-5.3-Flash</td><td>36.2 / 62.3</td><td>28.5 / 67.4</td><td>38.6 / 75.8</td><td>46.9 / 85.6</td><td>46.4 / 81.3</td><td class="ours">53.5 / 86.2</td><td class="gain">+17.3 / +23.9</td></tr>
         </tbody>
       </table>
     </div>
