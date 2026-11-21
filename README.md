@@ -86,7 +86,7 @@ Table 4. Average accuracy (%) on OSWorld-G.
 
 | Base model | Direct | ZoomClick | BAMI | AdaZoom-GUI | UI-Zoomer | **GUI-Lens** |
 |---|---|---|---|---|---|---|
-| MiniMax-M3.1 | 81.8 | 76.7 | 76.9 | 83.1 | **84.3** | 83.3 |
+| MiniMax-M3.1 | 81.8 | 76.7 | 76.9 | 83.1 | 84.3 | **85.1** |
 | DeepSeek-V4.1-Flash | 54.7 | 50.6 | 70.8 | 37.3 | 63.9 | **82.7** |
 | GLM-5.3-Flash | 68.0 | 43.5 | 57.3 | 79.6 | 61.0 | **85.3** |
 
