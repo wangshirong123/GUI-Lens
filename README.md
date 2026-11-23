@@ -60,9 +60,10 @@ Table 1. Accuracy (%) on all 1,581 ScreenSpot-Pro questions. The baselines use t
 |---|---|---|---|---|---|---|
 | GPT-5.5 | 74.8 | - | - | - | - | **87.9** |
 | Claude Opus 4.7 | 57.4 | - | - | - | - | **82.3** |
+| MiniMax-M3.1 | 45.9 | 69.1 | 70.7 | 62.3 | 73.6 | **78.9** |
 | DeepSeek-V4.1-Flash | 26.6 | 58.6 | 55.0 | 27.5 | 55.6 | **72.9** |
-| GLM-5.3-Flash | 18.3 | 38.0 | 49.9 | 52.1 | - | **70.0** |
-| MiniMax-M3 | 26.4 | - | - | - | - | **47.4** |
+| GLM-5.3-Flash | 18.3 | 38.0 | 49.9 | 52.1 | 54.0 | **77.5** |
+| Gemma-4-31B | 7.5 | - | - | - | - | **69.5** |
 
 Table 2. Average accuracy (%) on all 5,479 UI-Vision questions.
 
