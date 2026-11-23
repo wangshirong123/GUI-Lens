@@ -1,5 +1,5 @@
 <div align="center">
-<img src="assets/images/title.png?raw=true" width="90%" alt="GUI-Lens: Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping">
+<img src="assets/images/title.png?raw=true" width="90%" alt="Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping">
 <hr>
 
 Zichuan Fu<sup>*1</sup>&nbsp;
@@ -181,7 +181,7 @@ GUI-Lens uses [GPA-GUI-Detector](https://huggingface.co/Salesforce/GPA-GUI-Detec
 If you find this work useful in your research, please consider citing:
 ```bibtex
 @article{fu2026guilens,
-  title={GUI-Lens: Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping},
+  title={Enabling Precise GUI Grounding for Off-the-Shelf VLMs via Coarse-to-Fine Cropping},
   author={Fu, Zichuan and Wang, Shirong and Zhang, Wenlin and Li, Guojing and Deng, Yimin and Gao, Jingtong and Qi, Junjia and Yan, Hanyu and Zheng, Yefeng and Li, Xiaopeng and Wang, Wanyu and Wu, Xian and Zhao, Xiangyu},
   journal={arXiv preprint arXiv:2608.03270},
   year={2026}
