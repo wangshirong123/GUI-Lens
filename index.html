@@ -52,6 +52,9 @@
         <a href="https://github.com/wangshirong123/GUI-Lens" class="button is-normal is-rounded is-dark">
           <span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a>
       </div>
+      <div class="page-nav">
+        <a href="#abstract">Abstract</a><a href="#analysis">Analysis</a><a href="#method">Method</a><a href="#results">Results</a><a href="#gain">Gain source</a><a href="#efficiency">Efficiency</a><a href="#case">Case study</a><a href="#BibTeX">BibTeX</a>
+      </div>
     </div>
   </div>
 </section>
@@ -60,46 +63,70 @@
   <div class="container is-max-desktop">
     <div class="columns is-vcentered">
       <div class="column is-two-fifths">
-        <img class="teaser" src="static/images/teaser.png" alt="Set-of-Marks and attention miss a small toolbar icon; GUI-Lens reaches it with coordinate references and coarse-to-fine cropping.">
+        <img class="teaser" src="static/images/teaser.png" alt="Point-first zooming loses the target; region-first cropping keeps it. ScreenSpot-Pro accuracy of six base models with direct clicking and with GUI-Lens.">
       </div>
       <div class="column">
-        <h2 class="title is-4">Look closer before clicking</h2>
+        <h2 class="title is-4">Choose the region first, click last</h2>
         <ul class="highlights">
-          <li><span class="emoji">🤔</span><span>A VLM often <b>recognizes</b> the requested control on a high-resolution screen but cannot <b>click</b> it precisely; methods that end with one direct click let that first estimate reach the result.</span></li>
-          <li><span class="emoji">📍</span><span><b>Coordinate references.</b> OCR text and detected UI components are listed with their positions, so the model can point at a listed element.</span></li>
-          <li><span class="emoji">🔍</span><span><b>Coarse-to-fine cropping.</b> The model chooses the region and scale of the next view, which is cropped and enlarged until the target is clear.</span></li>
-          <li><span class="emoji">✅</span><span><b>Training-free.</b> Crops and clicks are checked against the instruction, and GUI-Lens works with any API VLM.</span></li>
+          <li><span class="emoji">🤔</span><span><b>Point-first methods lose the target.</b> Existing training-free methods zoom around a predicted click, so a click that lands off the target leaves it outside every later view.</span></li>
+          <li><span class="emoji">🔍</span><span><b>Region-first cropping.</b> The VLM chooses the region and scale of each next view itself, and clicks only once, on the final view.</span></li>
+          <li><span class="emoji">📍</span><span><b>Coordinate references and verification.</b> OCR text and detected UI components are listed with their positions, and every crop and click is checked against the instruction.</span></li>
+          <li><span class="emoji">✅</span><span><b>Training-free.</b> GUI-Lens works with any API VLM and raises ScreenSpot-Pro accuracy by up to 9.3&times; over the direct click of the same base model.</span></li>
         </ul>
       </div>
     </div>
-    <p class="caption"><b>Figure 1.</b> On a small toolbar target, Set-of-Marks may pick the wrong mark or have no mark on the target, and attention may peak off-target. GUI-Lens lists coordinate references and crops toward the target before clicking.</p>
+    <p class="caption"><b>Figure 1.</b> Top: on a UI-Vision example, point-first zooming loses the target, while region-first cropping (GUI-Lens) keeps it. Bottom: ScreenSpot-Pro accuracy (%) of six base models with direct clicking and with GUI-Lens.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="abstract">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <p>GUI grounding maps natural-language instructions to click locations and is essential for reliable GUI agents. The task remains difficult on high-resolution, densely populated interfaces because a vision-language model (VLM) may recognize a requested control without locating it precisely enough for interaction. Most existing methods provide various forms of localization assistance, but still rely on a direct click prediction, allowing visual ambiguity or an inaccurate initial estimate to propagate to the final result.</p>
-          <p>In this paper, we introduce <b>GUI-Lens</b>, a coarse-to-fine grounding framework that allows a general-purpose VLM to determine the target through active visual observations. Specifically, GUI-Lens extracts OCR text and detected UI components from the screenshot and presents their positions as coordinate references. Using the instruction, the current view, and these references, the VLM selects the region and scale of the next view, which is cropped and enlarged to provide finer visual details. This process continues over successively focused views until the target is determined. Proposed crops and clicks are checked against the instruction throughout the process, and the final local position is mapped back to the original screen coordinates.</p>
-          <p>Experiments on four GUI grounding benchmarks and five general-purpose base models show that GUI-Lens consistently improves grounding accuracy, by up to 3.8&times; on ScreenSpot-Pro.</p>
+          <p>GUI grounding maps natural-language instructions to click locations and is essential for reliable GUI agents. The task remains difficult on high-resolution, densely populated interfaces because a vision-language model (VLM) may recognize a requested control without locating it precisely enough for interaction. Existing training-free methods are point-first: they zoom around a predicted click, so every view depends on a coordinate committed at a coarser scale.</p>
+          <p>In this paper, we introduce <b>GUI-Lens</b>, a region-first grounding framework in which a general-purpose VLM selects each next view itself and clicks only once, on the final view. Specifically, GUI-Lens extracts OCR text and detected UI components from the screenshot and presents their positions as coordinate references. Using the instruction, the current view, and these references, the VLM selects the region and scale of the next view, which is cropped and enlarged to provide finer visual details. This process continues over successively focused views until the target is determined. Proposed crops and clicks are checked against the instruction throughout the process, and the final local position is mapped back to the original screen coordinates.</p>
+          <p>Across eight base models, the gain from cropping grows with reasoning, near-miss direct clicks, and low input resolution. Experiments on five GUI grounding benchmarks and six general-purpose base models show that GUI-Lens consistently improves grounding accuracy, by up to 9.3&times; on ScreenSpot-Pro.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="analysis">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Method</h2>
-    <img src="static/images/framework.png" alt="GUI-Lens pipeline: coordinate priming, VLM reasoning with coarse-to-fine cropping, and final grounding with verification.">
-    <p class="caption"><b>Figure 2.</b> Overview of GUI-Lens. Coordinate Priming converts OCR text and detected UI components into coordinate references. Using the task, the current crop and the visible references, the VLM either selects a finer crop or proposes a click. Accepted crops advance the process, rejected proposals restart it, and the accepted final click is mapped back to the original screen.</p>
+    <h2 class="title is-3 has-text-centered">Which Models Benefit from Cropping</h2>
+    <div class="content has-text-justified">
+      <p>The gain of coarse-to-fine cropping over the direct click varies widely across base models. On eight base models whose direct-click accuracy ranges from 1% to 96%, a few single-call probes predict this gain within <b>3.3 points</b> for a base model left out of the fit, at 500 calls per base model.</p>
+    </div>
+    <img src="static/images/backbone_analysis.png" alt="Probe inputs, expected gain by term, and direct, GUI-Lens and expected accuracy for eight base models.">
+    <p class="caption"><b>Figure 2.</b> Probes and gain of coarse-to-fine cropping on eight base models, one row each. Left: probe inputs, colored by the term they enter. Middle: expected gain by term, with the base model held out of the fit. Right: direct click, GUI-Lens, and expected accuracy.</p>
+    <ul class="highlights mt-5">
+      <li><span class="emoji">🧠</span><span><b>Reasoning matters most.</b> Without the reasoning term, the held-out error rises from 3.3 to 12.5 points. A base model that reasons checks each crop and discards the wrong ones.</span></li>
+      <li><span class="emoji">🎯</span><span><b>Zooming works near the target.</b> A crop enlarges the area around the model's own guess, so it fixes clicks that land close to the target.</span></li>
+      <li><span class="emoji">🖼️</span><span><b>Cropping restores lost resolution.</b> An endpoint that downscales the screenshot discards detail, and a crop brings it back.</span></li>
+    </ul>
+    <div class="columns is-vcentered mt-4">
+      <div class="column is-half">
+        <img src="static/images/size_case.png" alt="Accuracy of direct clicking and GUI-Lens by target size in vision patches.">
+      </div>
+      <div class="column is-half">
+        <p class="caption mt-0" style="text-align:left"><b>Figure 3.</b> Accuracy of direct clicking and GUI-Lens by target size in vision patches, over the eight base models. Direct clicks succeed on 7% of targets below half a patch, against about 60% for targets of one patch or more. GUI-Lens recovers about 30 points at every size.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <img src="static/images/framework.png" alt="GUI-Lens pipeline: coordinate priming, VLM reasoning with coarse-to-fine cropping, and final grounding with verification.">
+    <p class="caption"><b>Figure 4.</b> Overview of GUI-Lens. Coordinate Priming converts OCR text and detected UI components into coordinate references. Using the task, the current crop and the visible references, the VLM either selects a finer crop or proposes a click. Accepted crops advance the process, rejected proposals restart it, and the accepted final click is mapped back to the original screen.</p>
+  </div>
+</section>
+
+<section class="section" id="results">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
 
@@ -113,32 +140,16 @@
         <tbody>
           <tr><td>GPT-5.5</td><td>74.8</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">87.9</td><td class="gain">+13.1</td></tr>
           <tr><td>Claude Opus 4.7</td><td>57.4</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">82.3</td><td class="gain">+24.9</td></tr>
+          <tr><td>MiniMax-M3.1</td><td>45.9</td><td>69.1</td><td>70.7</td><td>62.3</td><td>73.6</td><td class="ours">78.9</td><td class="gain">+33.0</td></tr>
           <tr><td>DeepSeek-V4.1-Flash</td><td>26.6</td><td>58.6</td><td>55.0</td><td>27.5</td><td>55.6</td><td class="ours">72.9</td><td class="gain">+46.3</td></tr>
-          <tr><td>GLM-5.3-Flash</td><td>18.3</td><td>38.0</td><td>49.9</td><td>52.1</td><td>–</td><td class="ours">70.0</td><td class="gain">+51.7</td></tr>
-          <tr><td>MiniMax-M3</td><td>26.4</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">47.4</td><td class="gain">+21.0</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 class="title is-5 mt-5">OSWorld</h3>
-    <p class="table-caption"><b>Table 2.</b> Success rate (%) on three OSWorld domains; selected baselines are from the OSWorld-Verified leaderboard. Avg. is weighted by tasks.</p>
-    <div class="table-container">
-      <table class="table is-fullwidth is-hoverable results">
-        <thead><tr><th>Method (model)</th><th>Chrome</th><th>Multi-App</th><th>OS</th><th>Avg.</th></tr></thead>
-        <tbody>
-          <tr><td>Claude Sonnet 4.6</td><td>78.5</td><td>60.2</td><td>91.7</td><td>70.1</td></tr>
-          <tr><td>Claude Opus 5</td><td>80.2</td><td>76.8</td><td>79.2</td><td>78.1</td></tr>
-          <tr><td>Claude Fable 5</td><td>78.1</td><td>79.3</td><td>95.8</td><td>81.4</td></tr>
-          <tr><td>Muse Spark 1.1</td><td>73.8</td><td>71.7</td><td>95.8</td><td>75.9</td></tr>
-          <tr><td>OpenAPA (Gemini 3.1 Pro)</td><td>71.7</td><td>65.7</td><td>83.3</td><td>70.0</td></tr>
-          <tr><td>Pointer Agent (Claude Opus 4.7)</td><td>78.2</td><td>74.4</td><td>95.8</td><td>78.6</td></tr>
-          <tr class="ours-row"><td>GUI-Lens (Claude Opus 4.7)</td><td>93.5</td><td>80.0</td><td>100.0</td><td>86.8</td></tr>
+          <tr><td>GLM-5.3-Flash</td><td>18.3</td><td>38.0</td><td>49.9</td><td>52.1</td><td>54.0</td><td class="ours">77.5</td><td class="gain">+59.2</td></tr>
+          <tr><td>Gemma-4-31B</td><td>7.5</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="ours">69.5</td><td class="gain">+62.0</td></tr>
         </tbody>
       </table>
     </div>
 
     <h3 class="title is-5 mt-5">UI-Vision and MMBench-GUI-L2</h3>
-    <p class="table-caption"><b>Table 3.</b> Average accuracy (%) on UI-Vision (5,479 questions) / MMBench-GUI-L2 (3,594 questions).</p>
+    <p class="table-caption"><b>Table 2.</b> Average accuracy (%) on UI-Vision (5,479 questions) / MMBench-GUI-L2 (3,594 questions).</p>
     <div class="table-container">
       <table class="table is-fullwidth is-hoverable results">
         <thead>
@@ -153,22 +164,99 @@
       </table>
     </div>
 
+    <h3 class="title is-5 mt-5">OSWorld-G</h3>
+    <p class="table-caption"><b>Table 3.</b> Average accuracy (%) on OSWorld-G.</p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead>
+          <tr><th>Base model</th><th>Direct</th><th>ZoomClick</th><th>BAMI</th><th>AdaZoom-GUI</th><th>UI-Zoomer</th><th>GUI-Lens</th><th>Gain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MiniMax-M3.1</td><td>81.8</td><td>76.7</td><td>76.9</td><td>83.1</td><td>84.3</td><td class="ours">85.1</td><td class="gain">+3.3</td></tr>
+          <tr><td>DeepSeek-V4.1-Flash</td><td>54.7</td><td>50.6</td><td>70.8</td><td>37.3</td><td>63.9</td><td class="ours">82.7</td><td class="gain">+28.0</td></tr>
+          <tr><td>GLM-5.3-Flash</td><td>68.0</td><td>43.5</td><td>57.3</td><td>79.6</td><td>61.0</td><td class="ours">85.3</td><td class="gain">+17.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="columns is-vcentered mt-5">
       <div class="column is-half">
         <img src="static/images/crop_vs_zoom.png" alt="Accuracy by round: coarse-to-fine cropping versus click-centered zooming.">
       </div>
       <div class="column is-half">
-        <p class="caption mt-0" style="text-align:left"><b>Figure 3.</b> Coarse-to-fine cropping versus click-centered zooming on ScreenSpot-Pro with GPT-5.5.</p>
+        <p class="caption mt-0" style="text-align:left"><b>Figure 5.</b> Coarse-to-fine cropping versus click-centered zooming on ScreenSpot-Pro with GPT-5.5. With matched round budgets, cropping is more accurate at every nonzero number of rounds, so the gains do not stem from additional calls alone but from better views.</p>
+      </div>
+    </div>
+
+    <h3 class="title is-5 mt-5">OSWorld</h3>
+    <p class="table-caption"><b>Table 4.</b> Success rate (%) on three OSWorld domains; selected baselines are from the OSWorld-Verified leaderboard. Avg. is weighted by tasks.</p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead><tr><th>Method (model)</th><th>Chrome</th><th>Multi-App</th><th>OS</th><th>Avg.</th></tr></thead>
+        <tbody>
+          <tr><td>Claude Sonnet 4.6</td><td>78.5</td><td>60.2</td><td>91.7</td><td>70.1</td></tr>
+          <tr><td>Claude Opus 5</td><td>80.2</td><td>76.8</td><td>79.2</td><td>78.1</td></tr>
+          <tr><td>Claude Fable 5</td><td>78.1</td><td>79.3</td><td>95.8</td><td>81.4</td></tr>
+          <tr><td>Muse Spark 1.1</td><td>73.8</td><td>71.7</td><td>95.8</td><td>75.9</td></tr>
+          <tr><td>OpenAPA (Gemini 3.1 Pro)</td><td>71.7</td><td>65.7</td><td>83.3</td><td>70.0</td></tr>
+          <tr><td>Pointer Agent (Claude Opus 4.7)</td><td>78.2</td><td>74.4</td><td>95.8</td><td>78.6</td></tr>
+          <tr class="ours-row"><td>GUI-Lens (Claude Opus 4.7)</td><td>93.5</td><td>80.0</td><td>100.0</td><td>86.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gain">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Where the Gain Comes From</h2>
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <img class="narrow" src="static/images/gain_source.png" alt="Share of examples that the direct click and GUI-Lens answer correctly, split into Hit, Near and Far.">
+      </div>
+      <div class="column is-half">
+        <div class="content">
+          <p>We group every example by where the direct click of the base model lands: <b>Hit</b> (inside the target), <b>Near</b> (the quarter-screen window around the click contains the target), and <b>Far</b> (otherwise).</p>
+          <p>GUI-Lens recovers targets the direct click misses. Recovered Near examples add <b>14.6 to 26.9 points</b> of accuracy, and recovered Far examples add a further 1.5 to 7.8 points.</p>
+        </div>
+        <p class="caption" style="text-align:left"><b>Figure 6.</b> Where the gain of GUI-Lens over the direct click comes from, on UI-Vision and MMBench-GUI-L2. The direct click is correct on Hit and wrong on Near and Far examples; GUI-Lens stays correct on Hit examples and recovers both Near and Far ones.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="efficiency">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Efficiency and Ablation</h2>
+    <div class="columns">
+      <div class="column is-half"><img src="static/images/efficiency_tradeoff.png" alt="Accuracy and latency under four inference configurations."></div>
+      <div class="column is-half"><img src="static/images/efficiency_distribution.png" alt="Distribution of crop rounds used per sample."></div>
+    </div>
+    <p class="caption"><b>Figure 7.</b> Accuracy and efficiency on ScreenSpot-Pro with GPT-5.5. Left: accuracy and latency under four inference configurations, with VLM invocations in parentheses. Right: crop rounds used per sample. The Efficient setting adds 10.34 points over single-shot inference at 1.27&times; the latency, and 95.1% of samples finish within four crop rounds.</p>
+
+    <p class="table-caption mt-5"><b>Table 5.</b> Ablation on a random 300-example subset of ScreenSpot-Pro. Δ is the change from the full configuration in points.</p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead>
+          <tr><th rowspan="2">Configuration</th><th colspan="2">GPT-5.5</th><th colspan="2">DeepSeek-V4.1-Flash</th><th colspan="2">MiniMax-M3.1</th></tr>
+          <tr><th>Acc.</th><th>Δ</th><th>Acc.</th><th>Δ</th><th>Acc.</th><th>Δ</th></tr>
+        </thead>
+        <tbody>
+          <tr class="ours-row"><td>Full GUI-Lens</td><td>88.7</td><td>–</td><td>71.7</td><td>–</td><td>76.3</td><td>–</td></tr>
+          <tr><td>w/o Coordinate Priming</td><td>87.7</td><td>−1.0</td><td>57.7</td><td>−14.0</td><td>73.0</td><td>−3.3</td></tr>
+          <tr><td>w/o Cropping</td><td>78.3</td><td>−10.4</td><td>10.0</td><td>−61.7</td><td>47.3</td><td>−29.0</td></tr>
+          <tr><td>w/o Visual Verification</td><td>87.0</td><td>−1.7</td><td>65.7</td><td>−6.0</td><td>74.7</td><td>−1.7</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="case">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Case Study</h2>
     <img src="static/images/case_study.png" alt="A GUI-Lens grounding trajectory with rejected and accepted crops.">
-    <p class="caption"><b>Figure 4.</b> A grounding trajectory of GUI-Lens. Verification rejects crop proposals that omit the target, after which the framework selects a new region, progressively exposes the target control, and verifies the final click.</p>
+    <p class="caption"><b>Figure 8.</b> A grounding trajectory of GUI-Lens. Verification rejects crop proposals that omit the target, after which the framework selects a new region, progressively exposes the target control, and verifies the final click.</p>
   </div>
 </section>
 
